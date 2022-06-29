@@ -1,39 +1,39 @@
-using System;
+ï»¿using System;
 using UnityEngine;
-// Photon —p‚Ì–¼‘O‹óŠÔ‚ğQÆ‚·‚é
+// Photon ç”¨ã®åå‰ç©ºé–“ã‚’å‚ç…§ã™ã‚‹
 using Photon.Pun;
-using Photon.Pun.UtilityScripts;    // PunTurnManager, IPunTurnManagerCallbacks ‚ğg‚¤‚½‚ß
+using Photon.Pun.UtilityScripts;    // PunTurnManager, IPunTurnManagerCallbacks ã‚’ä½¿ã†ãŸã‚
 using Photon.Realtime;
 
 /// <summary>
-/// ƒQ[ƒ€Eƒ^[ƒ“‚ğŠÇ—‚·‚éƒRƒ“ƒ|[ƒlƒ“ƒg
+/// ã‚²ãƒ¼ãƒ ãƒ»ã‚¿ãƒ¼ãƒ³ã‚’ç®¡ç†ã™ã‚‹ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
 /// </summary>
 public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
 {
-    /// <summary>ƒvƒŒƒCƒ„[‚ÌoŒ»ƒ|ƒCƒ“ƒg</summary>
+    /// <summary>ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®å‡ºç¾ãƒã‚¤ãƒ³ãƒˆ</summary>
     [SerializeField] Transform[] _spawnPositions;
-    /// <summary>ƒvƒŒƒCƒ„[‚ÌƒvƒŒƒnƒu–¼</summary>
+    /// <summary>ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã®ãƒ—ãƒ¬ãƒãƒ–å</summary>
     [SerializeField] string _playerPrefabName = "Player";
-    /// <summary>–îˆó‚ÌƒIƒuƒWƒFƒNƒg</summary>
+    /// <summary>çŸ¢å°ã®ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ</summary>
     [SerializeField] ArrowController _arrow;
-    /// <summary>ƒpƒ[ƒQ[ƒW</summary>
+    /// <summary>ãƒ‘ãƒ¯ãƒ¼ã‚²ãƒ¼ã‚¸</summary>
     [SerializeField] PowerGaugeController _gauge;
-    /// <summary>ƒvƒŒƒCƒ„[‚Ì Rigidbody</summary>
+    /// <summary>ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã® Rigidbody</summary>
     [SerializeField] Rigidbody _player;
-    /// <summary>’e‚­ƒpƒ[‚Ì”{—¦</summary>
+    /// <summary>å¼¾ããƒ‘ãƒ¯ãƒ¼ã®å€ç‡</summary>
     [SerializeField] float _powerScale = 1f;
     [SerializeField] PunTurnManager _turnManager;
-    /// <summary>Œ»İ‚ÌƒtƒF[ƒY</summary>
+    /// <summary>ç¾åœ¨ã®ãƒ•ã‚§ãƒ¼ã‚º</summary>
     Phase _phase = Phase.none;
-    /// <summary>’¼‘O‚ÌƒtƒŒ[ƒ€‚Å‚ÌƒtƒF[ƒY</summary>
+    /// <summary>ç›´å‰ã®ãƒ•ãƒ¬ãƒ¼ãƒ ã§ã®ãƒ•ã‚§ãƒ¼ã‚º</summary>
     Phase _lastPhase = Phase.none;
-    /// <summary>©•ª‚ª‰½”Ô–Ú‚ÌƒvƒŒƒCƒ„[‚©i0ƒXƒ^[ƒgB“r’†”²‚¯‚ğl—¶‚µ‚Ä‚¢‚È‚¢j</summary>
+    /// <summary>è‡ªåˆ†ãŒä½•ç•ªç›®ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‹ï¼ˆ0ã‚¹ã‚¿ãƒ¼ãƒˆã€‚é€”ä¸­æŠœã‘ã‚’è€ƒæ…®ã—ã¦ã„ãªã„ï¼‰</summary>
     int _playerIndex = -1;
-    /// <summary>Œ»İ‰½”Ô–Ú‚ÌƒvƒŒƒCƒ„[‚ª‘€ì‚ğ‚µ‚Ä‚¢‚é‚©i0ƒXƒ^[ƒgB“r’†”²‚¯‚ğl—¶‚µ‚Ä‚¢‚È‚¢j</summary>
+    /// <summary>ç¾åœ¨ä½•ç•ªç›®ã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ãŒæ“ä½œã‚’ã—ã¦ã„ã‚‹ã‹ï¼ˆ0ã‚¹ã‚¿ãƒ¼ãƒˆã€‚é€”ä¸­æŠœã‘ã‚’è€ƒæ…®ã—ã¦ã„ãªã„ï¼‰</summary>
     int _activePlayerIndex = -1;
 
     /// <summary>
-    /// ƒQ[ƒ€‚ğ‰Šú‰»‚·‚é
+    /// ã‚²ãƒ¼ãƒ ã‚’åˆæœŸåŒ–ã™ã‚‹
     /// </summary>
     void InitializeGame()
     {
@@ -49,21 +49,21 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
 
     void Update()
     {
-        // ©•ª‚Ì”Ô‚Å‚Í‚È‚¢‚Í‰½‚à‚µ‚È‚¢
+        // è‡ªåˆ†ã®ç•ªã§ã¯ãªã„æ™‚ã¯ä½•ã‚‚ã—ãªã„
         if (_activePlayerIndex != _playerIndex) return;
 
-        // •ûŒü‚ğŒˆ‚ß‚éƒtƒF[ƒY‚É“ü‚Á‚½
+        // æ–¹å‘ã‚’æ±ºã‚ã‚‹ãƒ•ã‚§ãƒ¼ã‚ºã«å…¥ã£ãŸæ™‚
         if (_phase == Phase.Direction && _lastPhase != Phase.Direction)
         {
             _arrow.gameObject.SetActive(true);
         }
-        else if (_phase == Phase.Direction && Input.GetButtonDown("Fire1")) // •ûŒü‚ğŒˆ‚ß‚éƒtƒF[ƒY‚ÅƒNƒŠƒbƒN‚³‚ê‚½
+        else if (_phase == Phase.Direction && Input.GetButtonDown("Fire1")) // æ–¹å‘ã‚’æ±ºã‚ã‚‹ãƒ•ã‚§ãƒ¼ã‚ºã§ã‚¯ãƒªãƒƒã‚¯ã•ã‚ŒãŸæ™‚
         {
             _gauge.gameObject.SetActive(true);
             _gauge.StartGauge();
             _phase = Phase.Power;
         }
-        else if (_phase == Phase.Power && Input.GetButtonDown("Fire1")) // ƒpƒ[‚ğŒˆ‚ß‚éƒtƒF[ƒY‚É“ü‚Á‚½
+        else if (_phase == Phase.Power && Input.GetButtonDown("Fire1")) // ãƒ‘ãƒ¯ãƒ¼ã‚’æ±ºã‚ã‚‹ãƒ•ã‚§ãƒ¼ã‚ºã«å…¥ã£ãŸæ™‚
         {
             _arrow.gameObject.SetActive(false);
             float power = _gauge.StopGauge();
@@ -74,7 +74,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         _lastPhase = _phase;
     }
 
-    #region IPunTurnManagerCallbacks ‚ÌÀ‘•
+    #region IPunTurnManagerCallbacks ã®å®Ÿè£…
     void IPunTurnManagerCallbacks.OnTurnBegins(int turn)
     {
         Debug.Log($"Enter OnTurnBegins. turn: {turn}");
@@ -84,7 +84,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
             InitializeGame();
         }
 
-        _activePlayerIndex = 0;    // Å‰‚ÌƒvƒŒƒCƒ„[‚©‚çƒ^[ƒ“‚ğn‚ß‚é
+        _activePlayerIndex = 0;    // æœ€åˆã®ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‹ã‚‰ã‚¿ãƒ¼ãƒ³ã‚’å§‹ã‚ã‚‹
         _phase = Phase.Direction;
     }
 
@@ -117,15 +117,15 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
 }
 
 /// <summary>
-/// ƒQ[ƒ€‚ÌƒtƒF[ƒY
-/// TODO: •Ê‚Ìu’è”‚ğéŒ¾‚·‚éƒNƒ‰ƒXv‚ÉˆÚ“®‚·‚×‚«
+/// ã‚²ãƒ¼ãƒ ã®ãƒ•ã‚§ãƒ¼ã‚º
+/// TODO: åˆ¥ã®ã€Œå®šæ•°ã‚’å®£è¨€ã™ã‚‹ã‚¯ãƒ©ã‚¹ã€ã«ç§»å‹•ã™ã¹ã
 /// </summary>
 public enum Phase
 {
-    /// <summary>©•ª‚Ì”Ô‚Å‚Í‚È‚¢‚È‚Ç–¢’è‹`‚Ìó‘Ô</summary>
+    /// <summary>è‡ªåˆ†ã®ç•ªã§ã¯ãªã„ãªã©æœªå®šç¾©ã®çŠ¶æ…‹</summary>
     none,
-    /// <summary>•ûŒü‚ğŒˆ‚ß‚éƒtƒF[ƒY</summary>
+    /// <summary>æ–¹å‘ã‚’æ±ºã‚ã‚‹ãƒ•ã‚§ãƒ¼ã‚º</summary>
     Direction,
-    /// <summary>ƒpƒ[‚ğŒˆ‚ß‚éƒtƒF[ƒY</summary>
+    /// <summary>ãƒ‘ãƒ¯ãƒ¼ã‚’æ±ºã‚ã‚‹ãƒ•ã‚§ãƒ¼ã‚º</summary>
     Power,
 }

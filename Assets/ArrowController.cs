@@ -1,23 +1,23 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 /// <summary>
-/// —Í‚Ì•ûŒü‚ğ¦‚·–î‚ğ§Œä‚·‚éƒRƒ“ƒ|[ƒlƒ“ƒg
-/// TODO: ƒpƒ[‚ğŒˆ‚ß‚éƒtƒF[ƒY‚Å‚à–î‚ª“®‚©‚¹‚é‚Ì‚Å~‚ß‚é‚×‚«B
+/// åŠ›ã®æ–¹å‘ã‚’ç¤ºã™çŸ¢ã‚’åˆ¶å¾¡ã™ã‚‹ã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆ
+/// TODO: ãƒ‘ãƒ¯ãƒ¼ã‚’æ±ºã‚ã‚‹ãƒ•ã‚§ãƒ¼ã‚ºã§ã‚‚çŸ¢ãŒå‹•ã‹ã›ã‚‹ã®ã§æ­¢ã‚ã‚‹ã¹ãã€‚
 /// </summary>
 public class ArrowController : MonoBehaviour
 {
-    /// <summary>ƒvƒŒƒCƒ„[ƒIƒuƒWƒFƒNƒg</summary>
+    /// <summary>ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ</summary>
     [SerializeField] GameObject _player;
-    /// <summary>Raycast ‚ÌƒŒƒCƒ„[ƒ}ƒXƒN</summary>
+    /// <summary>Raycast ã®ãƒ¬ã‚¤ãƒ¤ãƒ¼ãƒã‚¹ã‚¯</summary>
     [SerializeField] LayerMask _layerMask;
-    /// <summary>Raycast ‚Ì‹——£</summary>
+    /// <summary>Raycast ã®è·é›¢</summary>
     [SerializeField] float _raycastDistance = 20f;
-    /// <summary>–î‚ğƒvƒŒƒCƒ„[‚©‚ç‚¢‚­‚ç—£‚µ‚Ä•\¦‚·‚é‚©</summary>
+    /// <summary>çŸ¢ã‚’ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‹ã‚‰ã„ãã‚‰é›¢ã—ã¦è¡¨ç¤ºã™ã‚‹ã‹</summary>
     [SerializeField] float _distanceFromPlayer = 1.5f;
-    /// <summary>–î‚ğƒvƒŒƒCƒ„[‚©‚ç‚Ç‚ê‚­‚ç‚¢ã‚É•\¦‚·‚é‚©</summary>
+    /// <summary>çŸ¢ã‚’ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã‹ã‚‰ã©ã‚Œãã‚‰ã„ä¸Šã«è¡¨ç¤ºã™ã‚‹ã‹</summary>
     [SerializeField] float _offsetY = 0.01f;
 
-    /// <summary>ƒvƒŒƒCƒ„[‚Ì GameObject</summary>
+    /// <summary>ãƒ—ãƒ¬ã‚¤ãƒ¤ãƒ¼ã® GameObject</summary>
     public GameObject Player
     {
         set { _player = value; }
@@ -27,7 +27,7 @@ public class ArrowController : MonoBehaviour
     {
         if (!_player) return;
 
-        // ƒ}ƒEƒX‚ÌˆÊ’u‚Ì•ûŒü‚É–îˆó‚ğŒü‚¯‚é
+        // ãƒã‚¦ã‚¹ã®ä½ç½®ã®æ–¹å‘ã«çŸ¢å°ã‚’å‘ã‘ã‚‹
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
 
         if (Physics.Raycast(ray, out RaycastHit hit, _raycastDistance, _layerMask))
