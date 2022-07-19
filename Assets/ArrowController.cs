@@ -2,7 +2,7 @@
 
 /// <summary>
 /// 力の方向を示す矢を制御するコンポーネント
-/// TODO: パワーを決めるフェーズでも矢が動かせるので止めるべき。
+/// TODO: パワーを決めるフェーズでも矢が動かせるので止めるべき。(Done)
 /// </summary>
 public class ArrowController : MonoBehaviour
 {
@@ -25,6 +25,9 @@ public class ArrowController : MonoBehaviour
         set { _player = value; }
     }
 
+    /// <summary>
+    /// 方向を決めたらパワーを決めるフェーズの際にArrowが動かないようにする
+    /// </summary>
     public void Stop()
     {
         _isStop = true;

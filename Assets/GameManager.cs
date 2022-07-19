@@ -61,7 +61,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         else if (_phase == Phase.Direction && Input.GetButtonDown("Fire1")) // 方向を決めるフェーズでクリックされた時
         {
             _arrowDirection = _arrow.gameObject.transform.forward;
-            _arrow.Stop();
+            _arrow.Stop();  // Arrowの回転を止める
             _gauge.gameObject.SetActive(true);
             _gauge.StartGauge();
             _phase = Phase.Power;
