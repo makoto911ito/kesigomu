@@ -17,15 +17,23 @@ public class ArrowController : MonoBehaviour
     /// <summary>矢をプレイヤーからどれくらい上に表示するか</summary>
     [SerializeField] float _offsetY = 0.01f;
 
+    bool _isStop = false;
+
     /// <summary>プレイヤーの GameObject</summary>
     public GameObject Player
     {
         set { _player = value; }
     }
 
+    public void Stop()
+    {
+        _isStop = true;
+    }
+
     void Update()
     {
         if (!_player) return;
+        if (_isStop) return;
 
         // マウスの位置の方向に矢印を向ける
         var ray = Camera.main.ScreenPointToRay(Input.mousePosition);
