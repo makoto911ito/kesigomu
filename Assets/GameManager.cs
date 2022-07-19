@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     [SerializeField] string _playerPrefabName = "Player";
     /// <summary>矢印のオブジェクト</summary>
     [SerializeField] ArrowController _arrow;
+    Vector3 _arrowDirection;
     /// <summary>パワーゲージ</summary>
     [SerializeField] PowerGaugeController _gauge;
     /// <summary>プレイヤーの Rigidbody</summary>
@@ -59,6 +60,8 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         }
         else if (_phase == Phase.Direction && Input.GetButtonDown("Fire1")) // 方向を決めるフェーズでクリックされた時
         {
+            _arrowDirection = _arrow.gameObject.transform.forward;
+            _arrow.Stop();
             _gauge.gameObject.SetActive(true);
             _gauge.StartGauge();
             _phase = Phase.Power;
@@ -67,7 +70,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         {
             _arrow.gameObject.SetActive(false);
             float power = _gauge.StopGauge();
-            _player.AddForce(_arrow.transform.forward * power * _powerScale, ForceMode.Impulse);
+            _player.AddForce(_arrowDirection * power * _powerScale, ForceMode.Impulse);
             _turnManager.SendMove(null, true);
         }
 
