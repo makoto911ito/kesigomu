@@ -7,17 +7,17 @@ using UnityEngine.SceneManagement;
 /// </summary>
 public class SceneChanger : MonoBehaviour
 {
-    AudioSource _as;
+    //AudioSource _as;
 
-    void Start()
-    {
-        _as = GetComponent<AudioSource>();
-    }
+    //void Start()
+    //{
+    //    _as = GetComponent<AudioSource>();
+    //}
 
     public void ChangeScene(string name)
     {
-        AudioManager am = AudioManager.Instance;
-        am.PlaySE();
+        //AudioManager am = AudioManager.Instance;
+        //am.PlaySE();
         SceneManager.LoadScene(name);
     }
 }

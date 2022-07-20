@@ -8,4 +8,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/GameScene.unity
     guid: 98773026b8857ff4d9d75481abce25f5
+  - enabled: 1
+    path: Assets/iwamae/Title.unity
+    guid: 0a2f74ede88cf9448b97b7b2b499bc8a
   m_configObjects: {}
