@@ -6,12 +6,10 @@ using UnityEngine.UI;
 public class PlayeName : MonoBehaviour
 {
     Text _name;
-    string _playerNamestr;// 他のスクリプトから持ってくる
 
     // Start is called before the first frame update
     void Start()
     {
-        _name.text = _playerNamestr;
         
     }
 
