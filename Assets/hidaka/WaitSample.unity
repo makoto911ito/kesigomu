@@ -807,10 +807,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 902c5e0eed1f7c847810f07d02b33f17, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waitPlayer: {fileID: 1164415551}
+  playersName: {fileID: 1164415551}
+  waitPlayer:
+  - 1164415551
   waitText: {fileID: 295856344}
   back: {fileID: 1097058515}
-  wait: {fileID: 0}
+  wait: {fileID: 1511397332}
 --- !u!1 &1511397332
 GameObject:
   m_ObjectHideFlags: 0
