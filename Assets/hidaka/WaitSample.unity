@@ -808,6 +808,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playersName: {fileID: 1164415551}
+  memberText: {fileID: 1315074001}
   waitPlayer:
   - 1164415551
   waitText: {fileID: 295856344}

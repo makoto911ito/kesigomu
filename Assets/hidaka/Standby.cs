@@ -5,13 +5,12 @@ using UnityEngine.SceneManagement;
 public class Standby : MonoBehaviour
 {
     [SerializeField] Text playersName = null;
-    [SerializeField] string[] waitPlayer = null;
+    [SerializeField] Text memberText = null;
     [SerializeField] Text waitText = null;//待機児表示文字
     [SerializeField] Text back = null; //戻るボタン まだ
     [SerializeField] GameObject wait = null;
     bool waitFlag = false; //待機画面を表示するか否か
     float time = 0; //点滅速度
-    int playerCount = 0;
     void Start()
     {
         wait = GetComponent<GameObject>();
@@ -25,10 +24,11 @@ public class Standby : MonoBehaviour
         //スポーンポイントの数をMaxとする
         GameObject[] sp = GameObject.FindGameObjectsWithTag("Untagged");
         GameObject[] pl = GameObject.FindGameObjectsWithTag("Player");
+        memberText.text = "待機中のプレイヤー\n" + pl.Length +"/" + sp.Length;
         playersName.text += "Player" + pl[pl.Length + 1] + ":" + pl[pl.Length].name + "\n";
 
         //プレイヤーがスポーンポイント数に満たない場合
-        if (playerCount == sp.Length) waitFlag = false;
+        if (pl.Length == sp.Length) waitFlag = false;
         else
         {
             waitFlag = true;
