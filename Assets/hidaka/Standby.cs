@@ -9,8 +9,10 @@ public class Standby : MonoBehaviour
     [SerializeField] Text waitPlayer = null; //待機中プレイヤー表示
     [SerializeField] Text waitText = null;//待機児表示文字
     [SerializeField] Text back = null; //戻るボタン まだ
+    [SerializeField] GameObject wait = null;
     bool waitFlag = false; //待機画面を表示するか否か
     float time = 0;
+    int playerCount = 0;
     void Start()
     {
         
@@ -20,11 +22,11 @@ public class Standby : MonoBehaviour
     void Update()
     {
         time += Time.deltaTime;
+        //if()
+        wait = GetComponent<GameObject>();
 
-        // 周期cycleで繰り返す波のアルファ値計算
+        //待機文字の点滅
         var alpha = Mathf.Cos(2 * Mathf.PI * time / 2) * 0.5f + 0.5f;
-
-        // 内部時刻timeにおけるアルファ値を反映
         var color = waitText.color;
         color.a = alpha;
         waitText.color = color;
