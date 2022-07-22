@@ -119,6 +119,8 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     #endregion
 }
 
+
+
 /// <summary>
 /// ゲームのフェーズ
 /// TODO: 別の「定数を宣言するクラス」に移動すべき
@@ -131,4 +133,6 @@ public enum Phase
     Direction,
     /// <summary>パワーを決めるフェーズ</summary>
     Power,
+    /// <summary>リザルトのフェーズ</summary>
+    Result,
 }
