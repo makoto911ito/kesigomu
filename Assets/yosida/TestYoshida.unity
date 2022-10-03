@@ -1046,7 +1046,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c003f6b08316b6546966c6117cfbb0c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _player: {fileID: 0}
+  _player: {fileID: 144355188023124287, guid: f7129d8d137aec8439fee7b4725bcd14, type: 3}
   _layerMask:
     serializedVersion: 2
     m_Bits: 8
@@ -1074,7 +1074,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-19180
+  m_Name: pb_Mesh21748
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -1609,10 +1609,10 @@ MonoBehaviour:
   _spawnPositions:
   - {fileID: 228277274}
   - {fileID: 1922419290}
-  _playerPrefabName: Player
+  _playerPrefabName: YPlayer
   _arrow: {fileID: 1172723992}
   _gauge: {fileID: 1753116879}
-  _player: {fileID: 0}
+  _player: {fileID: 144355188023124286, guid: fe1f629d9d921404d93e513c08d66855, type: 3}
   _powerScale: 10
   _turnManager: {fileID: 1753116878}
 --- !u!114 &1753116881
