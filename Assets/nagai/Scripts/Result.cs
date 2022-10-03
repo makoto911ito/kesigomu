@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Pun.UtilityScripts;    // PunTurnManager, IPunTurnManagerCallbacks を使うため
 using Photon.Realtime;
+using UnityEngine.SceneManagement;
 
 public class Result : MonoBehaviour
 {
@@ -22,5 +23,6 @@ public class Result : MonoBehaviour
         {
             Debug.Log("プレイヤー２の勝ち");
         }
+        SceneManager.LoadScene("Result");
     }
 }
