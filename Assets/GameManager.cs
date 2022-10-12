@@ -33,6 +33,11 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// <summary>現在何番目のプレイヤーが操作をしているか（0スタート。途中抜けを考慮していない）</summary>
     int _activePlayerIndex = -1;
 
+    [SerializeField] VictoryJudg _victoryJudg;
+    public int PlayerIndex { get => _playerIndex; }
+
+    bool _isShot = false;
+    
     /// <summary>
     /// ゲームを初期化する
     /// </summary>
@@ -45,6 +50,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         _arrow.Player = go;
         _arrow.gameObject.SetActive(false);
         _player = go.GetComponent<Rigidbody>();
+        _victoryJudg.CreateList(PhotonNetwork.PlayerList.Length);
     }
 
 
@@ -71,8 +77,17 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
             _arrow.gameObject.SetActive(false);
             float power = _gauge.StopGauge();
             _player.AddForce(_arrowDirection * power * _powerScale, ForceMode.Impulse);
-            _turnManager.SendMove(null, true);
+            _isShot = true;
+
         }
+        else if (_isShot == true && _player.velocity.magnitude == 0)
+        {
+            _victoryJudg.Judg();
+            _isShot = false;
+            _turnManager.SendMove(null, true);
+
+        }
+
 
         _lastPhase = _phase;
     }
@@ -99,6 +114,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     void IPunTurnManagerCallbacks.OnPlayerFinished(Player player, int turn, object move)
     {
         _activePlayerIndex = (_activePlayerIndex + 1) % PhotonNetwork.CurrentRoom.PlayerCount;
+        Debug.Log("ターンチェンジ");
     }
 
     void IPunTurnManagerCallbacks.OnTurnCompleted(int turn)
