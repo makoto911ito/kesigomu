@@ -33,6 +33,15 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// <summary>現在何番目のプレイヤーが操作をしているか（0スタート。途中抜けを考慮していない）</summary>
     int _activePlayerIndex = -1;
 
+    /// <summary>判定用スクリプト</summary>
+    [SerializeField] VictoryJudg _victoryJudg;
+
+    //自分の番号を死んだ時にわかるように渡している
+    public int PlayerIndex { get => _playerIndex; }
+
+    /// <summary>打ち終わったかどうか判定するためのフラグ</summary>
+    bool _isShot = false;
+    
     /// <summary>
     /// ゲームを初期化する
     /// </summary>
@@ -45,6 +54,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         _arrow.Player = go;
         _arrow.gameObject.SetActive(false);
         _player = go.GetComponent<Rigidbody>();
+        _victoryJudg.CreateList(PhotonNetwork.PlayerList.Length);
     }
 
 
@@ -57,7 +67,11 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         if (_phase == Phase.Direction && _lastPhase != Phase.Direction)
         {
             _arrow.gameObject.SetActive(true);
+<<<<<<< HEAD
+            _arrow.arrowMove();
+=======
             _arrow.Enable();
+>>>>>>> 940c991f2da57d2299616bfcee4d20e19b8e94db
         }
         else if (_phase == Phase.Direction && Input.GetButtonDown("Fire1")) // 方向を決めるフェーズでクリックされた時
         {
@@ -72,8 +86,17 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
             _arrow.gameObject.SetActive(false);
             float power = _gauge.StopGauge();
             _player.AddForce(_arrowDirection * power * _powerScale, ForceMode.Impulse);
-            _turnManager.SendMove(null, true);
+            _isShot = true;
+
         }
+        else if (_isShot == true && _player.velocity.magnitude == 0)//完全にプレイヤーが止まった後に勝敗判定を行う
+        {
+            _victoryJudg.Judg();
+            _isShot = false;
+            _turnManager.SendMove(null, true);
+
+        }
+
 
         _lastPhase = _phase;
     }
@@ -100,6 +123,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     void IPunTurnManagerCallbacks.OnPlayerFinished(Player player, int turn, object move)
     {
         _activePlayerIndex = (_activePlayerIndex + 1) % PhotonNetwork.CurrentRoom.PlayerCount;
+        Debug.Log("ターンチェンジ");
     }
 
     void IPunTurnManagerCallbacks.OnTurnCompleted(int turn)
