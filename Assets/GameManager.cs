@@ -67,7 +67,11 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         if (_phase == Phase.Direction && _lastPhase != Phase.Direction)
         {
             _arrow.gameObject.SetActive(true);
+<<<<<<< HEAD
             _arrow.arrowMove();
+=======
+            _arrow.Enable();
+>>>>>>> 940c991f2da57d2299616bfcee4d20e19b8e94db
         }
         else if (_phase == Phase.Direction && Input.GetButtonDown("Fire1")) // 方向を決めるフェーズでクリックされた時
         {
