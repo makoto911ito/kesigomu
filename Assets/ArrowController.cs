@@ -33,6 +33,11 @@ public class ArrowController : MonoBehaviour
         _isStop = true;
     }
 
+    public void arrowMove()
+    {
+        _isStop = false;
+    }
+
     void Update()
     {
         if (!_player) return;

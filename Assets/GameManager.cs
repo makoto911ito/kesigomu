@@ -33,9 +33,13 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// <summary>現在何番目のプレイヤーが操作をしているか（0スタート。途中抜けを考慮していない）</summary>
     int _activePlayerIndex = -1;
 
+    /// <summary>判定用スクリプト</summary>
     [SerializeField] VictoryJudg _victoryJudg;
+
+    //自分の番号を死んだ時にわかるように渡している
     public int PlayerIndex { get => _playerIndex; }
 
+    /// <summary>打ち終わったかどうか判定するためのフラグ</summary>
     bool _isShot = false;
     
     /// <summary>
@@ -63,6 +67,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         if (_phase == Phase.Direction && _lastPhase != Phase.Direction)
         {
             _arrow.gameObject.SetActive(true);
+            _arrow.arrowMove();
         }
         else if (_phase == Phase.Direction && Input.GetButtonDown("Fire1")) // 方向を決めるフェーズでクリックされた時
         {
@@ -80,7 +85,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
             _isShot = true;
 
         }
-        else if (_isShot == true && _player.velocity.magnitude == 0)
+        else if (_isShot == true && _player.velocity.magnitude == 0)//完全にプレイヤーが止まった後に勝敗判定を行う
         {
             _victoryJudg.Judg();
             _isShot = false;

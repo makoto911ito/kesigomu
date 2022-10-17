@@ -71,11 +71,15 @@ public class VictoryJudg : MonoBehaviour
 
         if (_playersList.Count == 1)
         {
-            _text.text = _playersList[0] + "‚ÌŸ—˜".ToString();
+            _text.text = _playersList[0] + "‚ÌŸ—˜";
         }
         else if(_playersList.Count == 0)
         {
             _text.text = "ˆø‚«•ª‚¯".ToString();
+        }
+        else
+        {
+            Debug.Log("‘±s");
         }
     }
 }
