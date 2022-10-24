@@ -24,6 +24,8 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
     /// <summary>弾くパワーの倍率</summary>
     [SerializeField] float _powerScale = 1f;
     [SerializeField] PunTurnManager _turnManager;
+    /// <summary>アニメーター</summary>
+    [SerializeField] Animator _animatorImage = null;
     /// <summary>現在のフェーズ</summary>
     Phase _phase = Phase.none;
     /// <summary>直前のフレームでのフェーズ</summary>
@@ -68,6 +70,9 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
 
         // 自分の番ではない時は何もしない
         if (_activePlayerIndex != _playerIndex) return;
+
+        // 自分のターンが来た時のUI
+        _animatorImage.SetTrigger("Slide");
 
         // 方向を決めるフェーズに入った時
         if (_phase == Phase.Direction && _lastPhase != Phase.Direction)

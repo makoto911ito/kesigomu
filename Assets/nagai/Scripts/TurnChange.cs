@@ -7,8 +7,11 @@ public class TurnChange : MonoBehaviour
 {
     [SerializeField] Animator _animator;
 
-    public void TurnChanger()
+    public void Update()
     {
-        _animator.SetTrigger("Image");
+        //if()
+        //{
+        //    _animator.SetTrigger("Image");
+        //}
     }
 }
