@@ -33,7 +33,7 @@ public class ArrowController : MonoBehaviour
         _isStop = true;
     }
 
-    public void Enable()
+    public void arrowMove()
     {
         _isStop = false;
     }

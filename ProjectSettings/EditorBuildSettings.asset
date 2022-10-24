@@ -5,13 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
+    path: Assets/iwamae/Title.unity
+    guid: 0a2f74ede88cf9448b97b7b2b499bc8a
+  - enabled: 0
+    path: Assets/hidaka/WaitSample.unity
+    guid: 384e4f519f56a7c43b3a797c4ef761e1
+  - enabled: 0
     path: Assets/GameScene.unity
     guid: 98773026b8857ff4d9d75481abce25f5
   - enabled: 1
-    path: Assets/iwamae/Title.unity
-    guid: 0a2f74ede88cf9448b97b7b2b499bc8a
-  - enabled: 1
-    path: Assets/nagai/Result.unity
-    guid: f4c1a222287ad18449c06993e58f4155
+    path: Assets/ito/GameScene ito.unity
+    guid: 2a0ce626e3e1214418f9d910aefd0302
   m_configObjects: {}
