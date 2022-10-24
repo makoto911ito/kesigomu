@@ -14,6 +14,8 @@ public class VictoryJudg : MonoBehaviour
     PhotonView _photonView;
     [SerializeField] Text _text;
 
+    public bool _isJudg = false;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -51,6 +53,7 @@ public class VictoryJudg : MonoBehaviour
     void RemoveList(int playernum)
     {
         _playersList.Remove(playernum);
+        _isJudg = true;
     }
 
     /// <summary>

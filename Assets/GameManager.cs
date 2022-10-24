@@ -60,6 +60,12 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
 
     void Update()
     {
+        if (_victoryJudg._isJudg == true)
+        {
+            _victoryJudg.Judg();
+            _victoryJudg._isJudg = false;
+        }
+
         // 自分の番ではない時は何もしない
         if (_activePlayerIndex != _playerIndex) return;
 
@@ -67,11 +73,7 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         if (_phase == Phase.Direction && _lastPhase != Phase.Direction)
         {
             _arrow.gameObject.SetActive(true);
-<<<<<<< HEAD
             _arrow.arrowMove();
-=======
-            _arrow.Enable();
->>>>>>> 940c991f2da57d2299616bfcee4d20e19b8e94db
         }
         else if (_phase == Phase.Direction && Input.GetButtonDown("Fire1")) // 方向を決めるフェーズでクリックされた時
         {
@@ -91,12 +93,9 @@ public class GameManager : MonoBehaviour, IPunTurnManagerCallbacks
         }
         else if (_isShot == true && _player.velocity.magnitude == 0)//完全にプレイヤーが止まった後に勝敗判定を行う
         {
-            _victoryJudg.Judg();
             _isShot = false;
             _turnManager.SendMove(null, true);
-
         }
-
 
         _lastPhase = _phase;
     }
