@@ -2,39 +2,36 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
+using System;
 
 public class Standby : MonoBehaviour
 {
-    [SerializeField] Text playersName = null;
-    [SerializeField] Text memberText = null;
+    [SerializeField] Text numberText = null;
     [SerializeField] Text waitText = null;//待機児表示文字
-    [SerializeField] Text back = null; //戻るボタン まだ
-    [SerializeField] GameObject wait = null;
+    [SerializeField] Text back = null;
     bool waitFlag = false; //待機画面を表示するか否か
     float time = 0; //点滅速度
-    [SerializeField] GameObject spornPoiunt;
-    List<GameObject> sp = new List<GameObject>();
-    GameObject[] pl;
-    void Start()
-    {
-        wait = GetComponent<GameObject>();
-    }
+    [SerializeField] List<GameObject> sp = new List<GameObject>();
+    [SerializeField] GameObject[] pl;
+    [SerializeField] int plNum = 0; //以前のプレイヤー数
+
 
 
     void Update()
     {
-        time += Time.deltaTime;
-
-        //スポーンポイントの数をMaxとする
-        //GameObject[] sp = GameObject.FindGameObjectsWithTag("Finish");
         pl = GameObject.FindGameObjectsWithTag("Player");
+        Func<int, int, string> nowText = (ply, spl) => { return ply + "人 / " + spl + "人中"; }; //現在の人数と
+            numberText.text = $"{nowText(pl.Length, sp.Count)}";
+
         
 
+        time += Time.deltaTime;
+
         //プレイヤーがスポーンポイント数に満たない場合
-        if (pl.Length == sp.Count) waitFlag = false;
+        if (pl.Length == sp.Count) waitFlag = true;
         else
         {
-            waitFlag = true;
+            waitFlag = false;
             waitText.text = "待機中...";
         }
 
@@ -43,18 +40,9 @@ public class Standby : MonoBehaviour
         var color = waitText.color;
         color.a = alpha;
         waitText.color = color;
-
-        if(waitFlag == false)
+        if(waitFlag == true)
         {
-            Destroy(wait);
+            Destroy(this.gameObject);
         }
-
-        //public void ChangeScene(Scene scene) => SceneManager.LoadScene("Title");
-    }
-    void Character()
-    {
-        memberText.text = "待機中のプレイヤー\n" + pl.Length + "/" + sp.Count;
-        playersName.text += "Player" + pl.Length + ":" + pl[pl.Length - 1].name + "\n";
-
     }
 }
