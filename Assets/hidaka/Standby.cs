@@ -3,6 +3,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 using System;
+using System.Collections;
 
 public class Standby : MonoBehaviour
 {
@@ -40,9 +41,13 @@ public class Standby : MonoBehaviour
         var color = waitText.color;
         color.a = alpha;
         waitText.color = color;
-        if(waitFlag == true)
-        {
-            Destroy(this.gameObject);
-        }
+        if(waitFlag == true)StartCoroutine(Matct());
+    }
+
+    IEnumerator Matct()
+    {
+        numberText.text = "ƒ}ƒbƒ`Š®—¹!";
+        yield return new WaitForSeconds(2.0f);
+        Destroy(this.gameObject);
     }
 }
