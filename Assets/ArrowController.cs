@@ -26,16 +26,22 @@ public class ArrowController : MonoBehaviour
     }
 
     /// <summary>
-    /// 方向を決めたらパワーを決めるフェーズの際にArrowが動かないようにする
+    /// パワーを決めるフェーズの際にArrowが動かないようにする
     /// </summary>
     public void Stop()
     {
         _isStop = true;
     }
 
+    public void arrowMove()
+    {
+        _isStop = false;
+    }
+
     void Update()
     {
         if (!_player) return;
+
         if (_isStop) return;
 
         // マウスの位置の方向に矢印を向ける
